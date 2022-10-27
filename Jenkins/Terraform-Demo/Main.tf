@@ -1,17 +1,3 @@
-# File : Sample\Main.tf  
-# Module : Azure-Add-ResourceGroup-Map
-# Teladoc Health
-# Systems Engineering
-# 4-18-2022
-
-# Sample Terriform  Script to call Azure-Add-ResourceGroup module.  Script will create as many resource groups as you specify in the variable map below. 
-# In order for the script to work you must update two variables below:
-# - ManagedResourceGroups : Variable String list of keys to process from the variable map RGS.  Items in Managed resource group are comma seperated and must 
-#   explicitly match the key in the RGS Map:
-#   - ["Item1"."Item2",Item3]
-
-# - RGS : Map variable group used to format the Resource Group Name, Determine where the resource group is located and apply any tags to the resource group
-
 # Standard Terraform provider call.
 terraform {
   required_providers {
