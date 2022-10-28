@@ -1,3 +1,3 @@
-output "jenkins_terraform"{
-    value = "Running Terraform from Jenkins in a subdirectory"
+output "hello_world"{
+    value = "Hello World!"
 }
