@@ -1,28 +1,23 @@
 pipeline {
-  agent any
-  options {
-    skipDefaultCheckout(true)
-  }
-  stages{
-    stage('clean workspace') {
-      steps {
-        cleanWs()
-      }
+    agent any
+
+    stages {
+        stage('Cleanup'){
+            steps {
+                cleanWs()
+            }
+            
+        }
+        stage('Git') {
+            steps {
+                git credentialsId: 'github-jenkins', url: 'git@github.com:brsockel/iac.git'
+            }
+        }
+        stage('terraform'){
+            steps {
+                sh ('terraform -chdir="Jenkins/Terraform-HelloWorld" init -no-color')
+                sh ('terraform -chdir="Jenkins/Terraform-HelloWorld" apply -auto-approve -no-color' )
+            }
+        }
     }
-    stage('checkout') {
-      steps {
-        checkout scm
-      }
-    }
-    stage('terraform') {
-      steps {
-        sh 'terraform apply -auto-approve -no-color'
-      }
-    }
-  }
-  post {
-    always {
-      cleanWs()
-    }
-  }
 }
