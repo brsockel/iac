@@ -53,8 +53,18 @@
         {
           "type": "powershell",
           "inline": [
-            "Write-Host \"Hello from PowerShell\"",
-            "Write-Host \"GoodBye from PowerShell\""
+            "Write-Host \"Starting Image Customization\"",
+
+            "Write-Host \"--Disabling IPV6\"",
+            "get-netadapterbinding -componentID ms_TCPIP6|disable-netadapterBinding -componentID MS_TCPIP6",
+
+            "Write-Host \"--Disabling Local Firewall\"",
+            "Set-NetFirewallProfile -profile Domain,Public,Private -enabled false",
+
+            "Write-Host \"--Disabling Local SMB1\"",
+            "get-windowsfeature fs-smb1|uninstall-windowsfeature",
+            
+            "Write-Host \"Completed Image Customization\""
         ]
         }
       ]
