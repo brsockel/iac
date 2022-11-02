@@ -55,7 +55,7 @@
             "type": "windows-update",
             "search_criteria": "IsInstalled=0",
             "filters": [
-              "exclude:$_.Title -like 'Preview'",
+              "exclude:$_.Title -like '*Preview*'",
               "include:$true"
             ],
             "update_limit": 25    
@@ -65,9 +65,9 @@
         },
         {
             "type": "windows-update",
-            "search_criteria": "IsInstalled=0",
+            "search_criteria": "IsInstalled = 0 And DeploymentAction=*",
             "filters": [
-              "exclude:$_.Title -like 'Preview'",
+              "exclude:$_.Title -like '*Preview*'",
               "include:$true"
             ],
             "update_limit": 25    
