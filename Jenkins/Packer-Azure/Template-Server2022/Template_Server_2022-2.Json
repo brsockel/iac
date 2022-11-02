@@ -51,6 +51,14 @@
         ],
     "provisioners": [
         {
+            "type": "windows-update",
+            "search_criteria": "IsInstalled=0",
+            "filters": [
+              "exclude:$_.Title -like '*Preview*'",
+              "include:$true"
+            ]    
+        },
+        {
           "type": "powershell",
           "inline": [
             "Write-Host \"Starting Image Customization\"",
@@ -76,8 +84,8 @@
             "install-packageprovider -name nuget -force",
             "install-module pswindowsupdate -force",
 
-            "Write-Host \"--Appling available Windows Updates.\"",
-            "get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot",
+            "# Write-Host \"--Appling available Windows Updates.\"",
+            "# get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot",
 
             "Write-Host \"--Generalizing OS Settings.\"",
             "\\windows\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /quiet /quit /mode:vm",
