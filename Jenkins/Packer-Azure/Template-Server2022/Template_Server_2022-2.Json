@@ -55,9 +55,10 @@
             "type": "windows-update",
             "search_criteria": "IsInstalled=0",
             "filters": [
-              "exclude:$_.Title -like '*Preview*'",
+              "exclude:$_.Title -like 'Preview'",
               "include:$true"
-            ]    
+            ],
+            "update_limit": 25    
         },
         {
           "type": "powershell",
@@ -87,6 +88,7 @@
 
             "# Write-Host \"--Appling available Windows Updates.\"",
             "# get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot",
+            "Set-ItemProperty \"HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\" -Name 'WindowsUpdate' -Value \"c:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe -noexit -command 'get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot'\"",
 
             "Write-Host \"--Generalizing OS Settings.\"",
             "\\windows\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /quiet /quit /mode:vm",
