@@ -57,7 +57,8 @@
 
             "Write-Host \"--Disabling IPV6\"",
             "get-netadapterbinding -componentID ms_TCPIP6|disable-netadapterBinding -componentID MS_TCPIP6",
-            "get-netadapterbinding -componentID ms_TCPIP6",
+            "get-netadapterbinding -componentID ms_TCPIP6", 
+            "# Need to create Registry to configure on first boot",
 
             "Write-Host \"--Disabling Local Firewall\"",
             "Set-NetFirewallProfile -profile Domain,Public,Private -enabled false",
@@ -71,11 +72,12 @@
             "w32tm /config /manualpeerlist:us.pool.ntp.org /syncfromflags:manual /reliable:yes /update",
             "w32tm /query /configuration",           
 
-            "# Write-Host \"--Installing Powershell Windows Update Module\"",
-            "# install-module pswindowsupdate -force -Confirm:$false",
+            "Write-Host \"--Installing Powershell Windows Update Module\"",
+            "install-packageprovider -name nuget -force",
+            "install-module pswindowsupdate -force",
 
             "Write-Host \"--Appling available Windows Updates.\"",
-            "# get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot",
+            "get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot",
 
             "Write-Host \"--Generalizing OS Settings.\"",
             "\\windows\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /quiet /quit /mode:vm",
