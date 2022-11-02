@@ -52,8 +52,10 @@
     "provisioners": [
         {
           "type": "powershell",
-          "execute_command": "powershell -executionpolicy bypass \"& { if (Test-Path variable:global:ProgressPreference){\\$ProgressPreference='SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit \\$LastExitCode }\"",
-          "inline": ["Write-Host \"Hello from PowerShell\""]
+          "inline": [
+            "Write-Host \"Hello from PowerShell\"",
+            "Write-Host \"GoodBye from PowerShell\""
+        ]
         }
       ]
 }
