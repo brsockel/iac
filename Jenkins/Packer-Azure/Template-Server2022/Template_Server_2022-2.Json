@@ -48,5 +48,20 @@
             },
             "vm_size": "{{user `vm_size`}}"
         }
+    ],
+    "provisioners": [
+        {
+            "type": "windows-shell",
+            "inline": [
+                "powershell.exe -executionpolicy bypass get-netadapterbinding -componentID ms_TCPIP6|disable-netadapterBinding -componentID MS_TCPIP6",
+                "powershell.exe -executionpolicy bypass Set-NetFirewallProfile -profile Domain,Public,Private -enabled false",
+                "powershell.exe -executionpolicy bypass get-windowsfeature fs-smb1|uninstall-windowsfeature",
+                "powershell.exe -executionpolicy bypass install-module pswindowsupdate -force",
+                "powershell.exe -executionpolicy bypass install-windowsupdate -acceptall",
+
+                "\\windows\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /quiet /quit /mode:vm"
+
+            ]
+        }
     ]
 }
