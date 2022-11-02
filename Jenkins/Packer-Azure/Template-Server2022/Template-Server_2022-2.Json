@@ -1,0 +1,52 @@
+{
+    "variables": {
+        "client_id":      "{{env `client_id`}}",
+        "client_secret":      "{{env `client_secret`}}",
+        "subscription_id":      "{{env `subscription_id`}}",
+        "managed_image_resource_group_name":      "{{env `managed_image_resource_group_name`}}",
+        "managed_image_name":      "{{env `managed_image_name`}}",
+        "os_type":      "{{env `os_type`}}",
+        "image_publisher":      "{{env `image_publisher`}}",
+        "image_offer":      "{{env `image_offer`}}",
+        "image_sku":      "{{env `image_sku`}}",
+        "location":      "{{env `location`}}",
+        "dest_subscription":      "{{env `dest_subscription`}}",
+        "dest_resource_group":      "{{env `dest_resource_group`}}",
+        "dest_gallery_name":      "{{env `dest_gallery_name`}}",
+        "dest_image_name":      "{{env `dest_image_name`}}",
+        "dest_image_version":      "{{env `dest_image_version`}}",
+        "dest_replication_regions":      "{{env `dest_replication_regions`}}",
+        "vm_size":      "{{env `vm_size`}}"
+    },
+
+
+    "builders": [
+        {
+            "type": "azure-arm",
+            "client_id": "{{user `client_id`}}",
+            "client_secret": "{{user `client_secret`}}",
+            "subscription_id": "{{user `subscription_id`}}",
+            "managed_image_resource_group_name": "{{user `managed_image_resource_group_name`}}",
+            "managed_image_name": "{{user `managed_image_name`}}",
+            "os_type": "{{user `os_type`}}",
+            "image_publisher": "{{user `image_publisher`}}",
+            "image_offer": "{{user `image_offer`}}",
+            "image_sku": "{{user `image_sku`}}",
+            "communicator": "winrm",
+            "winrm_use_ssl": "true",
+            "winrm_insecure": "true",
+            "winrm_timeout": "5m",
+            "winrm_username": "packer",
+            "location": "{{user `location`}}",
+            "shared_image_gallery_destination": {
+                "subscription": "{{user `dest_subscription`}}",
+                "resource_group": "{{user `dest_resource_group`}}",
+                "gallery_name": "{{user `dest_gallery_name`}}",
+                "image_name": "{{user `dest_image_name`}}",
+                "image_version": "{{user `dest_image_version`}}",
+                "replication_regions": "{{user `dest_replication_regions`}}"
+            },
+            "vm_size": "{{user `vm_size`}}"
+        }
+    ]
+}
