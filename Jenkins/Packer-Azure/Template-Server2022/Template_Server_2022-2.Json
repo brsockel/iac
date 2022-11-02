@@ -19,7 +19,8 @@
         "vm_size":      "{{env `vm_size`}}"
     },
 
-
+    "sensitive-variables": ["client_id","client_secret","subscription_id"],
+    
     "builders": [
         {
             "type": "azure-arm",
