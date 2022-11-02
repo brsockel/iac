@@ -67,11 +67,18 @@
             "get-windowsfeature fs-smb1|uninstall-windowsfeature",
             "get-windowsfeature fs-smb1",
 
+            "Write-Host \"--Setting NTP\"",
+            "w32tm /config /manualpeerlist:us.pool.ntp.org /syncfromflags:manual /reliable:yes /update",
+            "w32tm /query /configuration",           
+
             "Write-Host \"--Installing Powershell Windows Update Module\"",
-            "install-module pswindowsupdate -force",
+            "install-module pswindowsupdate -force -Confirm:$false",
 
             "Write-Host \"--Appling available Windows Updates.\"",
-            "install-windowsupdate -acceptall",
+            "get-windowsupdate -install -confirm:$false -AcceptAll -IgnoreReboot",
+
+            "Write-Host \"--Generalizing OS Settings.\"",
+            "\\windows\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /quiet /quit /mode:vm",
 
             "Write-Host \"Completed Image Customization\""
         ]
