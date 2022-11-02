@@ -48,7 +48,7 @@
             },
             "vm_size": "{{user `vm_size`}}"
         }
-    ],
+        ],
     "provisioners": [
         {
           "type": "powershell",
@@ -57,13 +57,22 @@
 
             "Write-Host \"--Disabling IPV6\"",
             "get-netadapterbinding -componentID ms_TCPIP6|disable-netadapterBinding -componentID MS_TCPIP6",
+            "get-netadapterbinding -componentID ms_TCPIP6",
 
             "Write-Host \"--Disabling Local Firewall\"",
             "Set-NetFirewallProfile -profile Domain,Public,Private -enabled false",
+            "get-netfirewallprofile |select-object Name,Enabled",
 
             "Write-Host \"--Disabling Local SMB1\"",
             "get-windowsfeature fs-smb1|uninstall-windowsfeature",
-            
+            "get-windowsfeature fs-smb1",
+
+            "Write-Host \"--Installing Powershell Windows Update Module\"",
+            "install-module pswindowsupdate -force",
+
+            "Write-Host \"--Appling available Windows Updates.\"",
+            "install-windowsupdate -acceptall",
+
             "Write-Host \"Completed Image Customization\""
         ]
         }
