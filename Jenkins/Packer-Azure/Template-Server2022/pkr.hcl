@@ -4,5 +4,5 @@ packer {
             version = "0.14.1"
             source = "github.com/rgl/windows-update"
         }
-        }
     }
+}
